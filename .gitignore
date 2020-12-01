@@ -1,0 +1,36 @@
+##### include following files #####|
+
+
+###################################|
+
+
+##### exclude rules ###############|
+
+### project specific ###
+
+
+### universal ###
+bin/
+build/
+out/
+target/
+
+### Mac OS X
+*.DS_Store
+
+### Eclipse / STS ###
+.project
+.apt_generated
+.classpath
+.factorypath
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+###################################|
