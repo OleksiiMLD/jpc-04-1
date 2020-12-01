@@ -1,0 +1,5 @@
+id, userName, lastName, email, telephoneNumber
+
+1, "Andy", "Valevsky", "a.valevsky@gmail.com", "+380672346796"
+2, "Sergiy", "Konavalec", "angry.serj@gmail.com", "+380508620136"
+3, "Dmitry", "Liashenko", "pokemon@ucb.com.ua", "+380974752464"

@@ -1,0 +1,4 @@
+id, building, workName, measurement, price, amount
+
+2, 2, "Priming", "SQ_METER", 11000.0, 50
+3, 2, "Dyeing", "SQ_METER", 13000.0, 50

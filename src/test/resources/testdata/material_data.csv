@@ -1,0 +1,5 @@
+id, name, price, supplier, measurement, balance
+
+1, "Concrete", 12.55, "Supplier 1", "KILOGRAM", 20
+2, "Laminate #4", 25.00, "Supplier 10", "SQ_METER", 10
+3, "Material to delete", 5.00, "Supplier 3", "SQ_METER", 10

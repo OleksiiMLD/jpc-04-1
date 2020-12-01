@@ -1,0 +1,4 @@
+id, report, name, isActive
+
+2, 2, "Building #2", "TRUE"
+3, 3, "Building #3", "TRUE"
