@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="warn">
+    <Properties>
+        <Property name="logfile_jpc_04" value="./logs/jpc_04.log"/>
+        <Property name="logfile_jpc_04_debug" value="./logs/jpc_04_debug.log"/>
+        <Property name="logfile_jpc_04_hibernate" value="./logs/jpc_04_hibernate.log"/>
+    </Properties>
+    <Appenders>
+        <RollingFile name="RollingFile_jpc_04" fileName="${logfile_jpc_04}"
+                     filePattern="./logs/$${date:yyyy-MM}/jpc_04-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT"/>
+        </RollingFile>
+        <RollingFile name="RollingFile_jpc_04_debug" fileName="${logfile_jpc_04_debug}"
+                     filePattern="./logs/$${date:yyyy-MM}/jpc_04_debug-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <ThresholdFilter level="TRACE" onMatch="ACCEPT"/>
+        </RollingFile>
+
+        <RollingFile name="RollingFile_jpc_04_hibernate" fileName="${logfile_jpc_04_hibernate}"
+                     filePattern="./logs/$${date:yyyy-MM}/jpc_04_hibernate-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <ThresholdFilter level="TRACE" onMatch="ACCEPT"/>
+        </RollingFile>
+
+        <Console name="ErrorConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+        </Console>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="ua.omld.jpc" level="error" additivity="false">
+            <AppenderRef ref="RollingFile_jpc_04"/>
+            <AppenderRef ref="ErrorConsole"/>
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+        </Root>
+
+<!--        Development/Debug properties-->
+        <Logger name="ua.omld.jpc" level="trace" additivity="false">
+            <AppenderRef ref="RollingFile_jpc_04_debug"/>
+            <AppenderRef ref="ErrorConsole"/>
+        </Logger>
+        <Logger name="org.hibernate.SQL" level="trace" additivity="false">
+            <AppenderRef ref="RollingFile_jpc_04_hibernate"/>
+        </Logger>
+        <Logger name="org.hibernate.type" level="trace" additivity="false">
+            <AppenderRef ref="RollingFile_jpc_04_hibernate"/>
+        </Logger>
+    </Loggers>
+</Configuration>
