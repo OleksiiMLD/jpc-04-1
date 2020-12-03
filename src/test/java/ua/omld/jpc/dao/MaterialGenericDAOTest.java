@@ -3,6 +3,7 @@ package ua.omld.jpc.dao;
 import org.junit.jupiter.api.Test;
 import ua.omld.jpc.dao.hibernate.MaterialDAOImpl;
 import ua.omld.jpc.entity.Material;
+import ua.omld.jpc.exception.DAOException;
 
 import javax.persistence.PersistenceException;
 import java.math.BigDecimal;
@@ -72,6 +73,14 @@ class MaterialGenericDAOTest extends DaoTest {
 		Material updatedMaterial = materialDAO.findById(ID_TO_FIND);
 
 		assertEquals(newPrice, updatedMaterial.getPrice(), "Price must be updated.");
+	}
+
+	@Test
+	void update_transientEntity_throwsException() {
+		Material material = new Material();
+		assertThrows(DAOException.class, () -> {
+			materialDAO.update(material);
+		}, "Supplier too long.");
 	}
 
 	@Test

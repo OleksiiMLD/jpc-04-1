@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import ua.omld.jpc.dao.hibernate.ReportDAOImpl;
 import ua.omld.jpc.entity.Report;
 import ua.omld.jpc.entity.User;
+import ua.omld.jpc.exception.DAOException;
 
 import java.util.List;
 
@@ -50,6 +51,6 @@ class ReportDAOTest extends DaoTest {
 	@Test
 	void findAllByUser_transientUser_throwsException() {
 		User user = new User();
-		assertThrows(IllegalStateException.class, () -> reportDAO.findAllByUser(user), "Transient user.") ;
+		assertThrows(DAOException.class, () -> reportDAO.findAllByUser(user), "Transient user.") ;
 	}
 }

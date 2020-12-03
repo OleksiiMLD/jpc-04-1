@@ -7,7 +7,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import ua.omld.jpc.dao.GenericDAO;
 import ua.omld.jpc.entity.Identifiable;
+import ua.omld.jpc.exception.DAOException;
 
+import javax.persistence.PersistenceException;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.function.Supplier;
@@ -45,7 +47,12 @@ public abstract class HibernateGenericDAO<E extends Identifiable> implements Gen
 	 */
 	@Override
 	public void create(E entity) {
-		getCurrentSession().save(entity);
+		try {
+			getCurrentSession().save(entity);
+		} catch (PersistenceException e) {
+			logger.error("Error persist entity: " + e.getMessage());
+			throw new DAOException(e);
+		}
 	}
 
 	/**
@@ -56,7 +63,12 @@ public abstract class HibernateGenericDAO<E extends Identifiable> implements Gen
 	 */
 	@Override
 	public E findById(Long id) {
-		return getCurrentSession().get(entityClass, id);
+		try {
+			return getCurrentSession().get(entityClass, id);
+		} catch (PersistenceException e) {
+			logger.error("Error find Entity with id " + id + ": " + e.getMessage());
+			throw new DAOException(e);
+		}
 	}
 
 	/**
@@ -66,7 +78,12 @@ public abstract class HibernateGenericDAO<E extends Identifiable> implements Gen
 	 */
 	@Override
 	public void update(E entity) {
-		getCurrentSession().update(entity);
+		try {
+			getCurrentSession().update(entity);
+		} catch (PersistenceException e) {
+			logger.error("Error update entity: " + e.getMessage());
+			throw new DAOException(e);
+		}
 	}
 
 	/**
@@ -76,7 +93,12 @@ public abstract class HibernateGenericDAO<E extends Identifiable> implements Gen
 	 */
 	@Override
 	public void delete(E entity) {
-		getCurrentSession().delete(entity);
+		try {
+			getCurrentSession().delete(entity);
+		} catch (PersistenceException e) {
+			logger.error("Error delete entity: " + e.getMessage());
+			throw new DAOException(e);
+		}
 	}
 
 	/**
@@ -86,7 +108,12 @@ public abstract class HibernateGenericDAO<E extends Identifiable> implements Gen
 	 */
 	@Override
 	public List<E> findAll() {
-		return getCurrentSession().createQuery("FROM " + entityClass.getSimpleName(), entityClass).getResultList();
+		try {
+			return getCurrentSession().createQuery("FROM " + entityClass.getSimpleName(), entityClass).getResultList();
+		} catch (PersistenceException e) {
+			logger.error("Error find all entities: " + e.getMessage());
+			throw new DAOException(e);
+		}
 	}
 
 	/**

@@ -8,7 +8,9 @@ import ua.omld.jpc.entity.Activity;
 import ua.omld.jpc.entity.Building;
 import ua.omld.jpc.entity.Report;
 import ua.omld.jpc.entity.User;
+import ua.omld.jpc.exception.DAOException;
 
+import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -47,11 +49,16 @@ public class ActivityDAOImpl extends HibernateGenericDAO<Activity> implements Ac
 	 */
 	@Override
 	public List<Activity> findAllByUserAndBuilding(User user, Building building) {
-		getCurrentSession().flush();
-		NativeQuery<Activity> query = getCurrentSession().createNativeQuery(FIND_BY_USER_AND_BUILDING, Activity.class);
-		query.setParameter("b_id", building.getId());
-		query.setParameter("u_id", user.getId());
-		return query.getResultList();
+		try {
+			getCurrentSession().flush();
+			NativeQuery<Activity> query = getCurrentSession().createNativeQuery(FIND_BY_USER_AND_BUILDING, Activity.class);
+			query.setParameter("b_id", building.getId());
+			query.setParameter("u_id", user.getId());
+			return query.getResultList();
+		} catch (PersistenceException e) {
+			logger.error("Error find reports: " + e.getMessage());
+			throw new DAOException(e);
+		}
 	}
 
 	/**
@@ -62,12 +69,17 @@ public class ActivityDAOImpl extends HibernateGenericDAO<Activity> implements Ac
 	 */
 	@Override
 	public BigDecimal getTotalPriceByBuilding(Building building) {
-		CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
-		CriteriaQuery<BigDecimal> cq = cb.createQuery(BigDecimal.class);
-		Root<Activity> fromActivity = cq.from(Activity.class);
-		cq.select(cb.sum(fromActivity.get("price").as(BigDecimal.class))).where(cb.equal(fromActivity.get("building"),
-				building));
-		return getCurrentSession().createQuery(cq).getSingleResult();
+		try {
+			CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
+			CriteriaQuery<BigDecimal> cq = cb.createQuery(BigDecimal.class);
+			Root<Activity> fromActivity = cq.from(Activity.class);
+			cq.select(cb.sum(fromActivity.get("price").as(BigDecimal.class))).where(cb.equal(fromActivity.get("building"),
+					building));
+			return getCurrentSession().createQuery(cq).getSingleResult();
+		} catch (PersistenceException | IllegalStateException e) {
+			logger.error("Error find price by building: " + e.getMessage());
+			throw new DAOException(e);
+		}
 	}
 
 	/**
@@ -78,9 +90,14 @@ public class ActivityDAOImpl extends HibernateGenericDAO<Activity> implements Ac
 	 */
 	@Override
 	public BigDecimal getTotalPriceByReport(Report report) {
-		Query<BigDecimal> query = getCurrentSession().createQuery(TOTAL_ACTIVITIES_PRICE_BY_REPORT, BigDecimal.class);
-		query.setParameter("report", report);
-		return query.getSingleResult();
+		try {
+			Query<BigDecimal> query = getCurrentSession().createQuery(TOTAL_ACTIVITIES_PRICE_BY_REPORT, BigDecimal.class);
+			query.setParameter("report", report);
+			return query.getSingleResult();
+		} catch (PersistenceException | IllegalStateException e) {
+			logger.error("Error find price by report: " + e.getMessage());
+			throw new DAOException(e);
+		}
 	}
 
 	/**
@@ -91,9 +108,14 @@ public class ActivityDAOImpl extends HibernateGenericDAO<Activity> implements Ac
 	 */
 	@Override
 	public BigDecimal getTotalPriceByUser(User user) {
-		getCurrentSession().flush();
-		Query<BigDecimal> query = getCurrentSession().createNativeQuery(TOTAL_ACTIVITIES_PRICE_BY_USER);
-		query.setParameter("u_id", user.getId());
-		return query.getSingleResult();
+		try {
+			getCurrentSession().flush();
+			Query<BigDecimal> query = getCurrentSession().createNativeQuery(TOTAL_ACTIVITIES_PRICE_BY_USER);
+			query.setParameter("u_id", user.getId());
+			return query.getSingleResult();
+		} catch (RuntimeException e) {
+			logger.error("Error find price by user: " + e.getMessage());
+			throw new DAOException(e);
+		}
 	}
 }

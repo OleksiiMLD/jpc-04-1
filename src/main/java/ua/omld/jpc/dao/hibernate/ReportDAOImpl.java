@@ -4,7 +4,9 @@ import org.hibernate.SessionFactory;
 import ua.omld.jpc.dao.ReportDAO;
 import ua.omld.jpc.entity.Report;
 import ua.omld.jpc.entity.User;
+import ua.omld.jpc.exception.DAOException;
 
+import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -30,11 +32,16 @@ public class ReportDAOImpl extends HibernateGenericDAO<Report> implements Report
 	 */
 	@Override
 	public List<Report> findAllByUser(User user) {
-		CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
-		CriteriaQuery<Report> cq = cb.createQuery(Report.class);
-		Root<Report> fromReport = cq.from(Report.class);
-		fromReport.fetch("buildings", JoinType.LEFT).fetch("activities", JoinType.LEFT);
-		cq.where(cb.equal(fromReport.get("user"), user)).distinct(true);
-		return getCurrentSession().createQuery(cq).getResultList();
+		try {
+			CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
+			CriteriaQuery<Report> cq = cb.createQuery(Report.class);
+			Root<Report> fromReport = cq.from(Report.class);
+			fromReport.fetch("buildings", JoinType.LEFT).fetch("activities", JoinType.LEFT);
+			cq.where(cb.equal(fromReport.get("user"), user)).distinct(true);
+			return getCurrentSession().createQuery(cq).getResultList();
+		} catch (PersistenceException | IllegalStateException e) {
+			logger.error("Error find reports: " + e.getMessage());
+			throw new DAOException(e);
+		}
 	}
 }

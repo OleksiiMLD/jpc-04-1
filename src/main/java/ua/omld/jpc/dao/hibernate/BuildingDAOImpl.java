@@ -5,7 +5,9 @@ import org.hibernate.query.Query;
 import ua.omld.jpc.dao.BuildingDAO;
 import ua.omld.jpc.dao.UserDAO;
 import ua.omld.jpc.entity.Building;
+import ua.omld.jpc.exception.DAOException;
 
+import javax.persistence.PersistenceException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -34,9 +36,14 @@ public class BuildingDAOImpl extends HibernateGenericDAO<Building> implements Bu
 	 */
 	@Override
 	public List<Building> findAllByGreaterTotalActivitiesPrice(BigDecimal price) {
-		Query<Building> query = getCurrentSession().createQuery(FIND_ALL_BY_TOTAL_PRICE, Building.class);
-		query.setParameter("t_price", price);
-		return query.getResultList();
+		try {
+			Query<Building> query = getCurrentSession().createQuery(FIND_ALL_BY_TOTAL_PRICE, Building.class);
+			query.setParameter("t_price", price);
+			return query.getResultList();
+		} catch (PersistenceException e) {
+			logger.error("Error find buildings: " + e.getMessage());
+			throw new DAOException(e);
+		}
 	}
 
 	/**
@@ -49,9 +56,14 @@ public class BuildingDAOImpl extends HibernateGenericDAO<Building> implements Bu
 	 */
 	@Override
 	public Integer inactivateAllByGreaterTotalActivitiesPrice(BigDecimal price) {
-		getCurrentSession().flush();
-		Query query = getCurrentSession().createNativeQuery(INACTIVATE_ALL_BY_TOTAL_PRICE);
-		query.setParameter("price", price);
-		return query.executeUpdate();
+		try {
+			getCurrentSession().flush();
+			Query query = getCurrentSession().createNativeQuery(INACTIVATE_ALL_BY_TOTAL_PRICE);
+			query.setParameter("price", price);
+			return query.executeUpdate();
+		} catch (PersistenceException e) {
+			logger.error("Error inactivate buildings: " + e.getMessage());
+			throw new DAOException(e);
+		}
 	}
 }
