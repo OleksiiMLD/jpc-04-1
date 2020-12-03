@@ -41,7 +41,6 @@ class ReportDAOTest extends DaoTest {
 
 	@Test
 	void findAllByUser_nonexistentUser_returnsNoReports() {
-//		User user = User.builder().withId(NONEXISTENT_ID).build();
 		User user = new User();
 		user.setId(NONEXISTENT_ID);
 		List<Report> reports = reportDAO.findAllByUser(user);
