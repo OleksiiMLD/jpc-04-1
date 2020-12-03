@@ -49,6 +49,7 @@ public class BuildingDAOImpl extends HibernateGenericDAO<Building> implements Bu
 	 */
 	@Override
 	public Integer inactivateAllByGreaterTotalActivitiesPrice(BigDecimal price) {
+		getCurrentSession().flush();
 		Query query = getCurrentSession().createNativeQuery(INACTIVATE_ALL_BY_TOTAL_PRICE);
 		query.setParameter("price", price);
 		return query.executeUpdate();

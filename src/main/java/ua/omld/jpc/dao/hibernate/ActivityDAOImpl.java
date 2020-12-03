@@ -47,6 +47,7 @@ public class ActivityDAOImpl extends HibernateGenericDAO<Activity> implements Ac
 	 */
 	@Override
 	public List<Activity> findAllByUserAndBuilding(User user, Building building) {
+		getCurrentSession().flush();
 		NativeQuery<Activity> query = getCurrentSession().createNativeQuery(FIND_BY_USER_AND_BUILDING, Activity.class);
 		query.setParameter("b_id", building.getId());
 		query.setParameter("u_id", user.getId());
@@ -90,6 +91,7 @@ public class ActivityDAOImpl extends HibernateGenericDAO<Activity> implements Ac
 	 */
 	@Override
 	public BigDecimal getTotalPriceByUser(User user) {
+		getCurrentSession().flush();
 		Query<BigDecimal> query = getCurrentSession().createNativeQuery(TOTAL_ACTIVITIES_PRICE_BY_USER);
 		query.setParameter("u_id", user.getId());
 		return query.getSingleResult();
