@@ -10,7 +10,7 @@ import ua.omld.jpc.entity.Identifiable;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Implements {@link GenericDAO} interface with Hibernate.
@@ -94,11 +94,11 @@ public abstract class HibernateGenericDAO<E extends Identifiable> implements Gen
 	 *
 	 * @return action result
 	 */
-	public Object executeInsideTransaction(Function<Object[], Object> action, String logMessage, Object... args) {
+	public Object executeInsideTransaction(Supplier<Object> action, String logMessage) {
 		Transaction transaction = getCurrentSession().getTransaction();
 		try {
 			transaction.begin();
-			Object result = action.apply(args);
+			Object result = action.get();
 			transaction.commit();
 			return result;
 		} catch (RuntimeException e) {

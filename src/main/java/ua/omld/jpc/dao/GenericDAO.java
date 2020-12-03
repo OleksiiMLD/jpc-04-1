@@ -4,7 +4,7 @@ import ua.omld.jpc.entity.Identifiable;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Provides generic DAO interface with basic CRUD operations.
@@ -55,5 +55,5 @@ public interface GenericDAO<E extends Identifiable, ID extends Serializable> {
 	 *
 	 * @return action result
 	 */
-	Object executeInsideTransaction(Function<Object[], Object> action, String logMessage, Object... args);
+	Object executeInsideTransaction(Supplier<Object> action, String logMessage);
 }

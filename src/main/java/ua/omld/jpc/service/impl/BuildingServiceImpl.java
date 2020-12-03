@@ -41,7 +41,7 @@ public class BuildingServiceImpl implements BuildingService {
 	@Override
 	public Integer inactivateAllByGreaterTotalActivitiesPrice(BigDecimal price) {
 		return (Integer) buildingDAO.executeInsideTransaction(
-				pr -> buildingDAO.inactivateAllByGreaterTotalActivitiesPrice((BigDecimal) pr[0]),
-				"Error inactivating buildings.", price);
+				() -> buildingDAO.inactivateAllByGreaterTotalActivitiesPrice(price),
+				"Error inactivating buildings.");
 	}
 }
