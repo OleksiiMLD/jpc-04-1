@@ -27,7 +27,7 @@ public class ReportDAOImpl extends HibernateGenericDAO<Report> implements Report
 	/**
 	 * Returns list of all {@link Report Reports} for the given {@link User}
 	 *
-	 * @param user user for witch search reports
+	 * @param user user for which search reports
 	 * @return list of found reports
 	 */
 	@Override

@@ -1,6 +1,8 @@
 package ua.omld.jpc.exception;
 
 /**
+ * Thrown when a problem in persistence layer occurs.
+ *
  * @author Oleksii Kostetskyi
  */
 public class DAOException extends RuntimeException {

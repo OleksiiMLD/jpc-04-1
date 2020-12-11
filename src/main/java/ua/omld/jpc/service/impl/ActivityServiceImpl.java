@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
+ * Implements {@link ActivityService} interface.
+ *
  * @author Oleksii Kostetskyi
  */
 public class ActivityServiceImpl implements ActivityService {

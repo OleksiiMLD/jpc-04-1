@@ -15,7 +15,7 @@ public interface ReportService {
 	/**
 	 * Returns list of all {@link Report Reports} for the given {@link User}
 	 *
-	 * @param user user for witch search reports
+	 * @param user user for which search reports
 	 * @return list of user's reports
 	 */
 	List<Report> findAllByUser(User user);

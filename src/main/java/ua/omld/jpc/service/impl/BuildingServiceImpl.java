@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
+ * Implements {@link BuildingService} interface.
+ *
  * @author Oleksii Kostetskyi
  */
 public class BuildingServiceImpl implements BuildingService {

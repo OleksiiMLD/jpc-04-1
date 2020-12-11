@@ -8,6 +8,8 @@ import ua.omld.jpc.service.ReportService;
 import java.util.List;
 
 /**
+ * Implements {@link ReportService} interface.
+ *
  * @author Oleksii Kostetskyi
  */
 public class ReportServiceImpl implements ReportService {
@@ -21,7 +23,7 @@ public class ReportServiceImpl implements ReportService {
 	/**
 	 * Returns list of all {@link Report Reports} for the given {@link User}
 	 *
-	 * @param user user for witch search reports
+	 * @param user user for which search reports
 	 * @return list of user's reports
 	 */
 	@Override
