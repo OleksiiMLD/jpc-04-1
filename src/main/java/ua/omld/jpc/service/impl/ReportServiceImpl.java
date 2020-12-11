@@ -1,6 +1,9 @@
 package ua.omld.jpc.service.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.omld.jpc.dao.ReportDAO;
+import ua.omld.jpc.dao.UserDAO;
 import ua.omld.jpc.entity.Report;
 import ua.omld.jpc.entity.User;
 import ua.omld.jpc.service.ReportService;
@@ -14,20 +17,40 @@ import java.util.List;
  */
 public class ReportServiceImpl implements ReportService {
 
-	private ReportDAO reportDAO;
+	private static final Logger LOGGER = LogManager.getLogger();
 
-	public ReportServiceImpl(ReportDAO reportDAO) {
+	private static final String PROVIDE_USER_ID = "Please provide user id.";
+	private static final String WRONG_USER_ID = "Wrong user id: ";
+
+	private ReportDAO reportDAO;
+	private UserDAO userDAO;
+
+	public ReportServiceImpl(ReportDAO reportDAO, UserDAO userDAO) {
 		this.reportDAO = reportDAO;
+		this.userDAO = userDAO;
 	}
 
 	/**
-	 * Returns list of all {@link Report Reports} for the given {@link User}
+	 * Returns list of all {@link Report Reports} for {@link User} with the given id.
 	 *
-	 * @param user user for which search reports
+	 * @param userId id of user for which search reports
 	 * @return list of user's reports
 	 */
 	@Override
-	public List<Report> findAllByUser(User user) {
-		return reportDAO.findAllByUser(user);
+	public List<Report> findAllByUserId(Long userId) {
+		if (userId == null) {
+			throw new IllegalArgumentException(PROVIDE_USER_ID);
+		}
+		return reportDAO.executeInsideTransaction(
+				() -> {
+					User user = userDAO.findById(userId);
+					if (user == null) {
+						LOGGER.debug(WRONG_USER_ID + userId);
+						throw new IllegalArgumentException(WRONG_USER_ID + userId);
+					}
+					return reportDAO.findAllByUser(user);
+				},
+				"Error find user reports."
+		);
 	}
 }

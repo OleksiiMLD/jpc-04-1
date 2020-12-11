@@ -14,6 +14,8 @@ import java.util.List;
  */
 public class BuildingServiceImpl implements BuildingService {
 
+	private static final String PROVIDE_PRICE = "Please provide price.";
+
 	private BuildingDAO buildingDAO;
 
 	public BuildingServiceImpl(BuildingDAO buildingDAO) {
@@ -29,7 +31,11 @@ public class BuildingServiceImpl implements BuildingService {
 	 */
 	@Override
 	public List<Building> findAllByGreaterTotalActivitiesPrice(BigDecimal price) {
-		return buildingDAO.findAllByGreaterTotalActivitiesPrice(price);
+		if (price == null) {
+			throw new IllegalArgumentException(PROVIDE_PRICE);
+		}
+		return buildingDAO.executeInsideTransaction(() -> buildingDAO.findAllByGreaterTotalActivitiesPrice(price),
+				"Error find buildings.");
 	}
 
 	/**
@@ -42,6 +48,12 @@ public class BuildingServiceImpl implements BuildingService {
 	 */
 	@Override
 	public Integer inactivateAllByGreaterTotalActivitiesPrice(BigDecimal price) {
+		if (price == null) {
+			throw new IllegalArgumentException(PROVIDE_PRICE);
+		}
+		if (BigDecimal.ZERO.equals(price)) {
+			throw new IllegalArgumentException("Price must be greater then zero.");
+		}
 		return buildingDAO.executeInsideTransaction(
 				() -> buildingDAO.inactivateAllByGreaterTotalActivitiesPrice(price),
 				"Error inactivating buildings.");

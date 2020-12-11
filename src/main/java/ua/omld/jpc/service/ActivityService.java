@@ -16,35 +16,36 @@ import java.util.List;
 public interface ActivityService {
 
 	/**
-	 * Returns list of found {@link Activity Activities} by the given {@link User} and {@link Building}
+	 * Returns list of found {@link Activity Activities} for the {@link User} with the given id
+	 * and the {@link Building} with the given id
 	 *
-	 * @param user     given user
-	 * @param building given building
+	 * @param userId     given user id
+	 * @param buildingId given building id
 	 * @return list of found activities
 	 */
-	List<Activity> findAllByUserAndBuilding(User user, Building building);
+	List<Activity> findAllByUserIdAndBuildingId(Long userId, Long buildingId);
 
 	/**
-	 * Returns total price of all {@link Activity Activities} for the given {@link Building}
+	 * Returns total price of all {@link Activity Activities} for the {@link Building} with the given id
 	 *
-	 * @param building given building
+	 * @param buildingId given building id
 	 * @return total price of all activities
 	 */
-	BigDecimal getTotalPriceByBuilding(Building building);
+	BigDecimal getTotalPriceByBuildingId(Long buildingId);
 
 	/**
-	 * Returns total price of all {@link Activity Activities} for the given {@link Report}
+	 * Returns total price of all {@link Activity Activities} for the {@link Report} with the given id
 	 *
-	 * @param report given report
+	 * @param reportId given report id
 	 * @return total price of all activities
 	 */
-	BigDecimal getTotalPriceByReport(Report report);
+	BigDecimal getTotalPriceByReportId(Long reportId);
 
 	/**
 	 * Returns total price of all {@link Activity Activities} for the given {@link User}
 	 *
-	 * @param user given user
+	 * @param userId given user id
 	 * @return total price of all activities
 	 */
-	BigDecimal getTotalPriceByUser(User user);
+	BigDecimal getTotalPriceByUserId(Long userId);
 }

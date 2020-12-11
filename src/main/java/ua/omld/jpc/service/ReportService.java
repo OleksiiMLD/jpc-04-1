@@ -13,10 +13,10 @@ import java.util.List;
 public interface ReportService {
 
 	/**
-	 * Returns list of all {@link Report Reports} for the given {@link User}
+	 * Returns list of all {@link Report Reports} for the {@link User} with the given id.
 	 *
-	 * @param user user for which search reports
+	 * @param userId id of user for which search reports
 	 * @return list of user's reports
 	 */
-	List<Report> findAllByUser(User user);
+	List<Report> findAllByUserId(Long userId);
 }
