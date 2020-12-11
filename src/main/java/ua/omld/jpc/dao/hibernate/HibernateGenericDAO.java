@@ -121,17 +121,23 @@ public abstract class HibernateGenericDAO<E extends Identifiable> implements Gen
 	 *
 	 * @return action result
 	 */
-	public Object executeInsideTransaction(Supplier<Object> action, String logMessage) {
+	public <T> T executeInsideTransaction(Supplier<T> action, String logMessage) {
 		Transaction transaction = getCurrentSession().getTransaction();
 		try {
 			transaction.begin();
-			Object result = action.get();
+			T result = action.get();
 			transaction.commit();
 			return result;
-		} catch (RuntimeException e) {
-			logger.error(logMessage);
-			transaction.rollback();
+		} catch (IllegalArgumentException e) {
+			logger.debug(logMessage, e);
 			throw e;
+		} catch (RuntimeException e) {
+			logger.error(logMessage, e);
+			throw e;
+		} finally {
+			if (transaction != null && transaction.isActive()) {
+				transaction.rollback();
+			}
 		}
 	}
 }

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class BuildingServiceImpl implements BuildingService {
 
-	private final BuildingDAO buildingDAO;
+	private BuildingDAO buildingDAO;
 
 	public BuildingServiceImpl(BuildingDAO buildingDAO) {
 		this.buildingDAO = buildingDAO;
@@ -42,7 +42,7 @@ public class BuildingServiceImpl implements BuildingService {
 	 */
 	@Override
 	public Integer inactivateAllByGreaterTotalActivitiesPrice(BigDecimal price) {
-		return (Integer) buildingDAO.executeInsideTransaction(
+		return buildingDAO.executeInsideTransaction(
 				() -> buildingDAO.inactivateAllByGreaterTotalActivitiesPrice(price),
 				"Error inactivating buildings.");
 	}

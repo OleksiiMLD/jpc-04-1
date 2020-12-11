@@ -55,5 +55,5 @@ public interface GenericDAO<E extends Identifiable, ID extends Serializable> {
 	 *
 	 * @return action result
 	 */
-	Object executeInsideTransaction(Supplier<Object> action, String logMessage);
+	<T> T executeInsideTransaction(Supplier<T> action, String logMessage);
 }
