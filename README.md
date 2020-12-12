@@ -3,7 +3,7 @@
 ## Simple Hibernate application
 
 ### Prerequisites
-1. JRE 1.8 or higher
+1. JRE 11 or higher
 2. PostgreSQL 9.6 or higher
 
 ### Preparation
