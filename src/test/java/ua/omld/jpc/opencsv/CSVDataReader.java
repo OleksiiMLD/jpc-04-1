@@ -10,7 +10,6 @@ import java.lang.reflect.ParameterizedType;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Reads and parses CSV-file with the given name. Searches file as resource at classpath.
@@ -29,10 +28,6 @@ public abstract class CSVDataReader<E> {
 	protected List<E> entities;
 
 	protected CSVDataReader(String dataFilePath) {
-		this(dataFilePath, Map.of());
-	}
-
-	protected CSVDataReader(String dataFilePath, Map<String, String> mapping) {
 		Class<E> entityClass = (Class<E>) (((ParameterizedType) getClass().getGenericSuperclass())
 				.getActualTypeArguments()[0]);
 		this.name = entityClass.getSimpleName().toUpperCase();
