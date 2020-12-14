@@ -2,6 +2,8 @@ package ua.omld.jpc.service.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.omld.jpc.dao.ReportDAO;
 import ua.omld.jpc.dao.UserDAO;
 import ua.omld.jpc.entity.Report;
@@ -15,6 +17,7 @@ import java.util.List;
  *
  * @author Oleksii Kostetskyi
  */
+@Service
 public class ReportServiceImpl implements ReportService {
 
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -25,6 +28,7 @@ public class ReportServiceImpl implements ReportService {
 	private ReportDAO reportDAO;
 	private UserDAO userDAO;
 
+	@Autowired
 	public ReportServiceImpl(ReportDAO reportDAO, UserDAO userDAO) {
 		this.reportDAO = reportDAO;
 		this.userDAO = userDAO;

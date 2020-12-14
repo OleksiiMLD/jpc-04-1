@@ -1,5 +1,7 @@
 package ua.omld.jpc.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.omld.jpc.dao.BuildingDAO;
 import ua.omld.jpc.entity.Building;
 import ua.omld.jpc.service.BuildingService;
@@ -12,12 +14,14 @@ import java.util.List;
  *
  * @author Oleksii Kostetskyi
  */
+@Service
 public class BuildingServiceImpl implements BuildingService {
 
 	private static final String PROVIDE_PRICE = "Please provide price.";
 
 	private BuildingDAO buildingDAO;
 
+	@Autowired
 	public BuildingServiceImpl(BuildingDAO buildingDAO) {
 		this.buildingDAO = buildingDAO;
 	}

@@ -2,6 +2,8 @@ package ua.omld.jpc.service.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.omld.jpc.dao.ActivityDAO;
 import ua.omld.jpc.dao.BuildingDAO;
 import ua.omld.jpc.dao.ReportDAO;
@@ -20,6 +22,7 @@ import java.util.List;
  *
  * @author Oleksii Kostetskyi
  */
+@Service
 public class ActivityServiceImpl implements ActivityService {
 
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -36,6 +39,7 @@ public class ActivityServiceImpl implements ActivityService {
 	private ReportDAO reportDAO;
 	private UserDAO userDAO;
 
+	@Autowired
 	public ActivityServiceImpl(ActivityDAO activityDAO, BuildingDAO buildingDAO, ReportDAO reportDAO, UserDAO userDAO) {
 		this.activityDAO = activityDAO;
 		this.buildingDAO = buildingDAO;

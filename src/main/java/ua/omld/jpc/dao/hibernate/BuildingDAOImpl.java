@@ -2,8 +2,9 @@ package ua.omld.jpc.dao.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ua.omld.jpc.dao.BuildingDAO;
-import ua.omld.jpc.dao.UserDAO;
 import ua.omld.jpc.entity.Building;
 import ua.omld.jpc.exception.DAOException;
 
@@ -16,6 +17,7 @@ import java.util.List;
  *
  * @author Oleksii Kostetskyi
  */
+@Repository
 public class BuildingDAOImpl extends HibernateGenericDAO<Building> implements BuildingDAO {
 
 	private static final String FIND_ALL_BY_TOTAL_PRICE = "SELECT b FROM Building b WHERE TRUE = " +
@@ -23,6 +25,7 @@ public class BuildingDAOImpl extends HibernateGenericDAO<Building> implements Bu
 	private static final String INACTIVATE_ALL_BY_TOTAL_PRICE = "UPDATE building b SET is_active = FALSE WHERE " +
 			" (SELECT sum(a.price) > :price FROM activity As a WHERE a.building_id = b.inst_id) = TRUE";
 
+	@Autowired
 	public BuildingDAOImpl(SessionFactory sessionFactory) {
 		super(sessionFactory);
 	}

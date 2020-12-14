@@ -1,6 +1,8 @@
 package ua.omld.jpc.dao.hibernate;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ua.omld.jpc.dao.ReportDAO;
 import ua.omld.jpc.entity.Report;
 import ua.omld.jpc.entity.User;
@@ -18,8 +20,10 @@ import java.util.List;
  *
  * @author Oleksii Kostetskyi
  */
+@Repository
 public class ReportDAOImpl extends HibernateGenericDAO<Report> implements ReportDAO {
 
+	@Autowired
 	public ReportDAOImpl(SessionFactory sessionFactory) {
 		super(sessionFactory);
 	}

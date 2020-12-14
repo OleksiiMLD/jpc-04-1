@@ -1,5 +1,7 @@
 package ua.omld.jpc.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.omld.jpc.dao.MaterialDAO;
 import ua.omld.jpc.entity.Material;
 import ua.omld.jpc.service.MaterialService;
@@ -11,6 +13,7 @@ import java.util.List;
  *
  * @author Oleksii Kostetskyi
  */
+@Service
 public class MaterialServiceImpl implements MaterialService {
 
 	private MaterialDAO materialDAO;
@@ -19,6 +22,7 @@ public class MaterialServiceImpl implements MaterialService {
 	private static final String MATERIAL_IS_NULL = "Material is null.";
 	private static final String PROVIDE_ID = "Please provide material id.";
 
+	@Autowired
 	public MaterialServiceImpl(MaterialDAO materialDAO) {
 		this.materialDAO = materialDAO;
 	}

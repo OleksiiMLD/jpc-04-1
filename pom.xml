@@ -22,6 +22,7 @@
         <h2.version>1.4.200</h2.version>
         <log4j.version>2.14.0</log4j.version>
         <opencsv.version>5.3</opencsv.version>
+        <spring.version>5.2.6.RELEASE</spring.version>
     </properties>
 
     <dependencies>
@@ -75,6 +76,14 @@
             <version>${opencsv.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

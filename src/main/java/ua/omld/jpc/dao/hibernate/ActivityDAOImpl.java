@@ -3,6 +3,8 @@ package ua.omld.jpc.dao.hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ua.omld.jpc.dao.ActivityDAO;
 import ua.omld.jpc.entity.Activity;
 import ua.omld.jpc.entity.Building;
@@ -22,6 +24,7 @@ import java.util.List;
  *
  * @author Oleksii Kostetskyi
  */
+@Repository
 public class ActivityDAOImpl extends HibernateGenericDAO<Activity> implements ActivityDAO {
 
 	private static final String FIND_BY_USER_AND_BUILDING = "SELECT a.* FROM activity as a" +
@@ -36,6 +39,7 @@ public class ActivityDAOImpl extends HibernateGenericDAO<Activity> implements Ac
 			" INNER JOIN report r on b.report_id = r.inst_id" +
 			" WHERE r.user_id = :u_id";
 
+	@Autowired
 	public ActivityDAOImpl(SessionFactory sessionFactory) {
 		super(sessionFactory);
 	}
