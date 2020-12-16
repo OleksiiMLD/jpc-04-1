@@ -186,6 +186,11 @@
                     <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
                     <clearOutputDir>true</clearOutputDir> <!-- false ONLY for dev -->
                     <verbose>true</verbose>
+                    <sources>
+                        <source>src/main/resources/META-INF/xsd/activity/</source>
+                        <source>src/main/resources/META-INF/xsd/building/</source>
+                        <source>src/main/resources/META-INF/xsd/reports/</source>
+                    </sources>
                 </configuration>
             </plugin>
         </plugins>

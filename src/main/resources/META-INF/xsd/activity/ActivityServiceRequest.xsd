@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:f="ua.omld.jpc" targetNamespace="ua.omld.jpc">
+    <xs:include schemaLocation="../core/common-types.xsd"/>
+
+    <xs:element name="activitiesByUserAndBuildingRequest" type="f:activitiesByUserAndBuildingRequest"/>
+
+    <xs:complexType name="activitiesByUserAndBuildingRequest">
+        <xs:sequence>
+            <xs:element name="userId" type="xs:long"/>
+            <xs:element name="buildingId" type="xs:long"/>
+
+            <xs:element name="nameValueParameters" type="f:nameValueParameters" minOccurs="0" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="activitiesPriceByUserRequest" type="f:activitiesPriceByUserRequest"/>
+
+    <xs:complexType name="activitiesPriceByUserRequest">
+        <xs:sequence>
+            <xs:element name="userId" type="xs:long"/>
+
+            <xs:element name="nameValueParameters" type="f:nameValueParameters" minOccurs="0" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="activitiesPriceByBuildingRequest" type="f:activitiesPriceByBuildingRequest"/>
+
+    <xs:complexType name="activitiesPriceByBuildingRequest">
+        <xs:sequence>
+            <xs:element name="buildingId" type="xs:long"/>
+
+            <xs:element name="nameValueParameters" type="f:nameValueParameters" minOccurs="0" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="activitiesPriceByReportRequest" type="f:activitiesPriceByReportRequest"/>
+
+    <xs:complexType name="activitiesPriceByReportRequest">
+        <xs:sequence>
+            <xs:element name="reportId" type="xs:long"/>
+
+            <xs:element name="nameValueParameters" type="f:nameValueParameters" minOccurs="0" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

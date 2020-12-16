@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:f="ua.omld.jpc" targetNamespace="ua.omld.jpc">
+
+    <xs:complexType name="commonInterfaceResponse">
+        <xs:sequence>
+            <!-- SUCCESS, FAILURE -->
+            <xs:element name="status" type="xs:string" minOccurs="1"/>
+            <xs:element name="failure" type="f:failure" nillable="true" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="failure">
+        <xs:sequence>
+            <xs:element name="error" type="f:error" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="error">
+        <xs:sequence>
+            <xs:element name="errorCode" type="xs:string"/>
+            <xs:element name="errorDescription" type="xs:string"/>
+            <xs:element name="errorDescriptionAR" type="xs:string"/>
+            <!-- FUNCTIONAL, TECHNICAL -->
+            <xs:element name="errorType" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>FUNCTIONAL: errors within the application itself; for example, a request fails
+                        validation against the XSD.
+                        TECHNICAL: beyond the control of the application; for example, can't connect to database
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="user">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0" nillable="true"/>
+            <xs:element name="userName" type="xs:string" minOccurs="0" nillable="true"/>
+            <xs:element name="lastName" type="xs:string" minOccurs="0" nillable="true"/>
+            <xs:element name="email" type="xs:string" minOccurs="0" nillable="true"/>
+            <xs:element name="emailBackup" type="xs:string" minOccurs="0" nillable="true"/>
+            <xs:element name="telephoneNumber" type="xs:string" minOccurs="0" nillable="true"/>
+            <xs:element name="telephoneNumberBackUp" type="xs:string" minOccurs="0" nillable="true"/>
+            <xs:element name="reports" type="f:reportList" nillable="true" minOccurs="0"/>
+            <xs:element name="nameValueParameters" type="f:nameValueParameters" minOccurs="0" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="report">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0" nillable="true"/>
+            <xs:element name="name" type="xs:string" minOccurs="0" nillable="true"/>
+            <xs:element name="price" type="xs:decimal" minOccurs="0" nillable="true"/>
+            <xs:element name="orderDate" type="xs:date" minOccurs="0" nillable="true"/>
+            <xs:element name="user" type="f:user" minOccurs="0" nillable="true"/>
+            <xs:element name="buildings" type="f:buildingList" nillable="true" minOccurs="0"/>
+            <xs:element name="nameValueParameters" type="f:nameValueParameters" minOccurs="0" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="reportList">
+        <xs:sequence>
+            <xs:element name="report" type="f:report" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="building">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0" nillable="true"/>
+            <xs:element name="name" type="xs:string" minOccurs="0" nillable="true"/>
+            <xs:element name="active" type="xs:boolean" minOccurs="0" nillable="true"/>
+            <xs:element name="report" type="f:report" minOccurs="0" nillable="true"/>
+            <xs:element name="activities" type="f:activityList" nillable="true" minOccurs="0"/>
+            <xs:element name="nameValueParameters" type="f:nameValueParameters" minOccurs="0" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="buildingList">
+        <xs:sequence>
+            <xs:element name="building" type="f:building" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="activity">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0" nillable="true"/>
+            <xs:element name="workName" type="xs:string" minOccurs="0" nillable="true"/>
+            <xs:element name="amount" type="xs:double" minOccurs="0" nillable="true"/>
+            <xs:element name="measurement" type="f:activityMeasurement" minOccurs="0" nillable="true"/>
+            <xs:element name="price" type="xs:decimal" minOccurs="0" nillable="true"/>
+            <xs:element name="building" type="f:building" minOccurs="0" nillable="true"/>
+            <xs:element name="nameValueParameters" type="f:nameValueParameters" minOccurs="0" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="activityList">
+        <xs:sequence>
+            <xs:element name="activity" type="f:activity" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="activityMeasurement">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SQ_METER"/>
+            <xs:enumeration value="METER"/>
+            <xs:enumeration value="PIECE"/>
+            <xs:enumeration value="HOUR"/>
+            <xs:enumeration value="DAY"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="nameValueParameters">
+        <xs:sequence>
+            <xs:element name="nameValue" type="f:nameValue" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="nameValue">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="value" type="xs:string" minOccurs="0" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

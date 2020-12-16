@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:f="ua.omld.jpc" targetNamespace="ua.omld.jpc">
+    <xs:include schemaLocation="../core/common-types.xsd"/>
+
+    <xs:element name="userReportsResponse" type="f:userReportsResponse"/>
+
+    <xs:complexType name="userReportsResponse">
+        <xs:complexContent>
+            <xs:extension base="f:commonInterfaceResponse">
+                <xs:sequence>
+                    <xs:element name="reportList" type="f:reportList" minOccurs="0" nillable="true"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

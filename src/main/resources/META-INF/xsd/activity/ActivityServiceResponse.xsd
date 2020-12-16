@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:f="ua.omld.jpc" targetNamespace="ua.omld.jpc">
+    <xs:include schemaLocation="../core/common-types.xsd"/>
+
+    <xs:element name="activitiesByUserBuildingResponse" type="f:activitiesResponse"/>
+
+    <xs:complexType name="activitiesResponse">
+        <xs:complexContent>
+            <xs:extension base="f:commonInterfaceResponse">
+                <xs:sequence>
+                    <xs:element name="activityList" type="f:activityList" minOccurs="0" nillable="true"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="activitiesPriceResponse" type="f:activitiesPriceResponse"/>
+
+    <xs:complexType name="activitiesPriceResponse">
+        <xs:complexContent>
+            <xs:extension base="f:commonInterfaceResponse">
+                <xs:sequence>
+                    <xs:element name="price" type="xs:decimal" minOccurs="0" nillable="true"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>
