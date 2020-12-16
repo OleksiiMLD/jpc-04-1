@@ -16,7 +16,7 @@ import ua.omld.jpc.entity.User;
  */
 public class HibernateUtil {
 
-	private static SessionFactory sessionFactory;
+	private static volatile SessionFactory sessionFactory;
 
 	private HibernateUtil() {
 		// Non-instantiable util class
