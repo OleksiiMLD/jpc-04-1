@@ -23,7 +23,8 @@ public class BuildingDAOImpl extends HibernateGenericDAO<Building> implements Bu
 	private static final String FIND_ALL_BY_TOTAL_PRICE = "SELECT b FROM Building b WHERE TRUE = " +
 			" (SELECT SUM(a.price) > :t_price FROM Activity a WHERE a MEMBER OF b.activities )";
 	private static final String INACTIVATE_ALL_BY_TOTAL_PRICE = "UPDATE building b SET is_active = FALSE WHERE " +
-			" (SELECT sum(a.price) > :price FROM activity As a WHERE a.building_id = b.inst_id) = TRUE";
+			" (SELECT sum(a.price) > :price FROM activity As a WHERE a.building_id = b.inst_id) = TRUE" +
+			" AND is_active != FALSE ";
 
 	@Autowired
 	public BuildingDAOImpl(SessionFactory sessionFactory) {
