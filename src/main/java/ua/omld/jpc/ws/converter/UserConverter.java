@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author Oleksii Kostetskyi
  */
-@Component
+@Component("ws.UserConverter")
 public class UserConverter extends Converter<User, ua.omld.jpc.entity.User> {
 
 	public UserConverter(ObjectFactory objectFactory) {

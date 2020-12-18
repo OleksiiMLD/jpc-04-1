@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author Oleksii Kostetskyi
  */
-@Component
+@Component("ws.ActivityConverter")
 public class ActivityConverter extends Converter<Activity, ua.omld.jpc.entity.Activity> {
 
 	public ActivityConverter(ObjectFactory objectFactory) {

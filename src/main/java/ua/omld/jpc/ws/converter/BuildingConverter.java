@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author Oleksii Kostetskyi
  */
-@Component
+@Component("ws.BuildingConverter")
 public class BuildingConverter extends Converter<Building, ua.omld.jpc.entity.Building> {
 
 	public BuildingConverter(ObjectFactory objectFactory) {

@@ -15,7 +15,7 @@ import java.time.LocalDate;
 /**
  * @author Oleksii Kostetskyi
  */
-@Component
+@Component("ws.ReportConverter")
 public class ReportConverter extends Converter<Report, ua.omld.jpc.entity.Report> {
 
 	private static final Logger LOGGER = LogManager.getLogger();
