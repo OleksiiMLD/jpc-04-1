@@ -1,5 +1,6 @@
 package ua.omld.jpc.controller.exception;
 
+import org.springframework.context.annotation.Conditional;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import ua.omld.jpc.configuration.WebStartCondition;
 import ua.omld.jpc.exception.DAOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ResponseBody
 @ControllerAdvice(basePackages = "ua.omld.jpc.controller")
+@Conditional(WebStartCondition.class)
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ExceptionsHandler {
 
