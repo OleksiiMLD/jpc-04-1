@@ -19,7 +19,6 @@ import ua.omld.jpc.entity.User;
 import ua.omld.jpc.ws.converter.ActivityConverter;
 
 import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.function.Supplier;
@@ -32,7 +31,6 @@ import static ua.omld.jpc.ws.WSConstants.SUCCESS;
  * @author Oleksii Kostetskyi
  */
 @Component("ws.ActivityServiceImpl")
-@SOAPBinding
 @WebService(name = "ActivityService", endpointInterface = "ua.omld.jpc.ws.ActivityService",
 		serviceName = "JPCActivityService", portName = "JPCActivityServicePort")
 public class ActivityServiceImpl implements ActivityService {
@@ -83,7 +81,7 @@ public class ActivityServiceImpl implements ActivityService {
 			LOGGER.info(e.getMessage());
 			ResponseUtil.setFunctionalFailure(response, e, objectFactory);
 		} catch (Exception e) {
-			LOGGER.error(e.getMessage());
+			LOGGER.error(e.getMessage(), e);
 			ResponseUtil.setTechnicalFailure(response, e, objectFactory);
 		}
 		return response;
