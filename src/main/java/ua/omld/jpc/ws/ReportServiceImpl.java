@@ -35,7 +35,7 @@ public class ReportServiceImpl implements ReportService {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	private ObjectFactory objectFactory = new ObjectFactory();
+	private ObjectFactory objectFactory;
 	private ReportConverter reportConverter;
 	private BuildingConverter buildingConverter;
 	private ActivityConverter activityConverter;

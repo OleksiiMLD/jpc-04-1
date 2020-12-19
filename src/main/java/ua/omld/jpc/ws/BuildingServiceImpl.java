@@ -29,7 +29,7 @@ public class BuildingServiceImpl implements BuildingService {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	private ObjectFactory objectFactory = new ObjectFactory();
+	private ObjectFactory objectFactory;
 	private BuildingConverter buildingConverter;
 	private ua.omld.jpc.service.BuildingService buildingService;
 

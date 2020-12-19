@@ -39,7 +39,7 @@ public class ActivityServiceImpl implements ActivityService {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	private ObjectFactory objectFactory = new ObjectFactory();
+	private ObjectFactory objectFactory;
 	private ActivityConverter activityConverter;
 
 	private ua.omld.jpc.service.ActivityService activityService;
