@@ -28,6 +28,7 @@
         <jaxb2.maven.plugin.version>2.5.0</jaxb2.maven.plugin.version>
         <servlet.version>4.0.1</servlet.version>
         <jackson.version>2.10.4</jackson.version>
+        <jaxws-spring.version>1.9</jaxws-spring.version>
     </properties>
 
     <dependencies>
@@ -135,6 +136,31 @@
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-parameter-names</artifactId>
             <version>${jackson.version}</version>
+        </dependency>
+
+        <!--  Spring JAX-WS Integration -->
+        <dependency>
+            <groupId>org.jvnet.jax-ws-commons.spring</groupId>
+            <artifactId>jaxws-spring</artifactId>
+            <version>${jaxws-spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.xml.ws</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.xml.ws</groupId>
+                    <artifactId>jaxws-rt</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
