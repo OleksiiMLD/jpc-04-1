@@ -4,6 +4,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <display-name>JPC06-REST</display-name>
+    <display-name>JPC06-REST-WS</display-name>
 
 </web-app>
