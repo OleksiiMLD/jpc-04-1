@@ -1,5 +1,7 @@
 package ua.omld.jpc.controller.exception;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -22,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ExceptionsHandler {
 
+	private static final Logger LOGGER = LogManager.getLogger();
+
 	@ExceptionHandler(IllegalArgumentException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ExceptionResponse illegalArgument(IllegalArgumentException e, HttpServletRequest request) {
@@ -39,6 +43,7 @@ public class ExceptionsHandler {
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ExceptionResponse generalError(Exception e, HttpServletRequest request) {
+		LOGGER.error("Unknown Exception!", e);
 		String uri = getFullUri(request);
 		return new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, uri,
 				HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
