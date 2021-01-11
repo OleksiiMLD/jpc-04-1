@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,6 +40,20 @@ public class ExceptionsHandler {
 	public ExceptionResponse datasourceError(Exception e, HttpServletRequest request) {
 		String uri = getFullUri(request);
 		return new ExceptionResponse(HttpStatus.INSUFFICIENT_STORAGE, uri, "Data storage error.");
+	}
+
+	@ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public ExceptionResponse authenticationError(HttpServletRequest request) {
+		String uri = getFullUri(request);
+		return new ExceptionResponse(HttpStatus.UNAUTHORIZED, uri, "Not authenticated! Please provide credentials.");
+	}
+
+	@ExceptionHandler(AccessDeniedException.class)
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public ExceptionResponse authorizationError(HttpServletRequest request) {
+		String uri = getFullUri(request);
+		return new ExceptionResponse(HttpStatus.UNAUTHORIZED, uri, "Access denied!");
 	}
 
 	@ExceptionHandler(Exception.class)
