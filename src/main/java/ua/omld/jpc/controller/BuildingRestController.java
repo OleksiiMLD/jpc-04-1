@@ -13,6 +13,7 @@ import ua.omld.jpc.dto.BuildingDto;
 import ua.omld.jpc.dto.converter.BuildingConverter;
 import ua.omld.jpc.service.BuildingService;
 
+import javax.annotation.security.RolesAllowed;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class BuildingRestController {
 		return new ResponseEntity<>(buildingDtoList, status);
 	}
 
+	@RolesAllowed("MANAGER")
 	@PatchMapping(value = "buildings",
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> inactivateAllByGreaterTotalActivitiesPrice(@RequestParam("totalActivitiesPriceGte") BigDecimal totalPrice,
