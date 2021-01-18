@@ -22,7 +22,7 @@ public class ActivityConverter extends Converter<ActivityDto, Activity> {
 		}
 		ActivityDto activityDto = new ActivityDto();
 		BeanUtils.copyProperties(activity, activityDto);
-		activityDto.setMeasurement(activity.getMeasurement().name());
+		activityDto.setMeasurement(activity.getMeasurement() == null ? null : activity.getMeasurement().name());
 		return activityDto;
 	}
 
@@ -32,7 +32,8 @@ public class ActivityConverter extends Converter<ActivityDto, Activity> {
 		}
 		Activity activity = new Activity();
 		BeanUtils.copyProperties(activityDto, activity);
-		activity.setMeasurement(ActivityMeasurement.valueOf(activityDto.getMeasurement()));
+		activity.setMeasurement(activityDto.getMeasurement() == null ? null :
+				ActivityMeasurement.valueOf(activityDto.getMeasurement().toUpperCase()));
 		return activity;
 	}
 }
