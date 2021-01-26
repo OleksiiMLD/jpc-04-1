@@ -1,5 +1,6 @@
 package ua.omld.jpc.service.impl;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.omld.jpc.dao.MaterialDAO;
@@ -16,11 +17,16 @@ import java.util.List;
 @Service
 public class MaterialServiceImpl implements MaterialService {
 
-	private MaterialDAO materialDAO;
-
-	private static final String WRONG_MATERIAL_ID = "Wrong material id: ";
+	private static final String ERROR_CREATE_MATERIAL = "Can`t create material.";
+	private static final String ERROR_DELETE_MATERIAL = "Error delete material.";
+	private static final String ERROR_FIND_MATERIALS = "Error find Materials";
+	private static final String ERROR_UPDATE_MATERIAL = "Error update Material.";
 	private static final String MATERIAL_IS_NULL = "Material is null.";
+	private static final String MATERIAL_NOT_FOUND = "Material with the given ID not found.";
 	private static final String PROVIDE_ID = "Please provide material id.";
+	private static final String WRONG_MATERIAL_ID = "Wrong material id: ";
+
+	private MaterialDAO materialDAO;
 
 	@Autowired
 	public MaterialServiceImpl(MaterialDAO materialDAO) {
@@ -41,7 +47,7 @@ public class MaterialServiceImpl implements MaterialService {
 		materialDAO.executeInsideTransaction(() -> {
 			materialDAO.create(material);
 			return material;
-		}, "Can`t create material.");
+		}, ERROR_CREATE_MATERIAL);
 		return material;
 	}
 
@@ -56,7 +62,7 @@ public class MaterialServiceImpl implements MaterialService {
 		if (id == null) {
 			throw new IllegalArgumentException(PROVIDE_ID);
 		}
-		return materialDAO.executeInsideTransaction(() -> materialDAO.findById(id), "Error find Material");
+		return materialDAO.executeInsideTransaction(() -> materialDAO.findById(id), MATERIAL_NOT_FOUND);
 	}
 
 	/**
@@ -70,9 +76,14 @@ public class MaterialServiceImpl implements MaterialService {
 			throw new IllegalArgumentException(MATERIAL_IS_NULL);
 		}
 		materialDAO.executeInsideTransaction(() -> {
-			materialDAO.update(material);
-			return material;
-		}, "Error update Material");
+			Material savedMaterial = materialDAO.findById(material.getId());
+			if (savedMaterial == null) {
+				throw new IllegalArgumentException(MATERIAL_NOT_FOUND);
+			}
+			BeanUtils.copyProperties(material, savedMaterial);
+			materialDAO.update(savedMaterial);
+			return savedMaterial;
+		}, ERROR_UPDATE_MATERIAL);
 	}
 
 	/**
@@ -92,7 +103,7 @@ public class MaterialServiceImpl implements MaterialService {
 			}
 			materialDAO.delete(material);
 			return true;
-		}, "Error delete material.");
+		}, ERROR_DELETE_MATERIAL);
 	}
 
 	/**
@@ -102,6 +113,6 @@ public class MaterialServiceImpl implements MaterialService {
 	 */
 	@Override
 	public List<Material> findAll() {
-		return materialDAO.executeInsideTransaction(() -> materialDAO.findAll(), "Error find Materials");
+		return materialDAO.executeInsideTransaction(() -> materialDAO.findAll(), ERROR_FIND_MATERIALS);
 	}
 }
