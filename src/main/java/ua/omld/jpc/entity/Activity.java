@@ -39,7 +39,6 @@ public class Activity implements Identifiable<Long> {
 	@Column(name = "work_name")
 	private String workName;
 
-	@Size(max = 20)
 	@Column(name = "measurement")
 	@Enumerated(EnumType.STRING)
 	private ActivityMeasurement measurement;

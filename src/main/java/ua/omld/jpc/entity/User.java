@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
@@ -38,10 +39,12 @@ public class User implements Identifiable<Long> {
 
 	@NotNull
 	@Size(max = 50)
+	@Email
 	@Column(name = "email")
 	private String email;
 
 	@Size(max = 50)
+	@Email
 	@Column(name = "email_backup")
 	private String emailBackup;
 
