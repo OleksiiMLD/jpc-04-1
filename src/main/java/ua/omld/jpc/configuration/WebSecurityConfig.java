@@ -3,6 +3,7 @@ package ua.omld.jpc.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 				.authorizeRequests()
 				.antMatchers("/ws/**").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
 				.antMatchers("/api/**").authenticated()
 				.antMatchers("/**").denyAll()
 			.and()
