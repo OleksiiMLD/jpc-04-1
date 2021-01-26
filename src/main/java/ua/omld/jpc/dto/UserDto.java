@@ -2,6 +2,9 @@ package ua.omld.jpc.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,11 +19,27 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 public class UserDto {
 
 	private Long id;
+
+	@Size(max = 50)
 	private String userName;
+
+	@Size(max = 50)
 	private String lastName;
+
+	@NotNull
+	@Size(max = 50)
+	@Email
 	private String email;
+
+	@Size(max = 50)
+	@Email
 	private String emailBackup;
+
+	@NotNull
+	@Size(max = 20)
 	private String telephoneNumber;
+
+	@Size(max = 20)
 	private String telephoneNumberBackUp;
 	private Set<ReportDto> reports;
 

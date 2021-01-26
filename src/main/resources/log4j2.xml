@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Configuration status="warn">
     <Properties>
-        <Property name="logfile_jpc_04" value="./logs/jpc_04.log"/>
-        <Property name="logfile_jpc_04_debug" value="./logs/jpc_04_debug.log"/>
-        <Property name="logfile_jpc_04_hibernate" value="./logs/jpc_04_hibernate.log"/>
+        <Property name="log_dir" value="${sys:catalina.base:-.}/logs/jpc"/>
+        <Property name="logfile_jpc_04" value="${log_dir}/jpc_04.log"/>
+        <Property name="logfile_jpc_04_debug" value="${log_dir}/jpc_04_debug.log"/>
+        <Property name="logfile_jpc_04_hibernate" value="${log_dir}/jpc_04_hibernate.log"/>
     </Properties>
     <Appenders>
         <RollingFile name="RollingFile_jpc_04" fileName="${logfile_jpc_04}"
-                     filePattern="./logs/$${date:yyyy-MM}/jpc_04-%d{yyyy-MM-dd}-%i.log.gz">
+                     filePattern="${log_dir}/$${date:yyyy-MM}/jpc_04-%d{yyyy-MM-dd}-%i.log.gz">
             <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy />
@@ -17,7 +18,7 @@
         </RollingFile>
 
         <RollingFile name="RollingFile_jpc_04_debug" fileName="${logfile_jpc_04_debug}"
-                     filePattern="./logs/$${date:yyyy-MM}/jpc_04_debug-%d{yyyy-MM-dd}-%i.log.gz">
+                     filePattern="${log_dir}/$${date:yyyy-MM}/jpc_04_debug-%d{yyyy-MM-dd}-%i.log.gz">
             <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy />
@@ -27,7 +28,7 @@
         </RollingFile>
 
         <RollingFile name="RollingFile_jpc_04_hibernate" fileName="${logfile_jpc_04_hibernate}"
-                     filePattern="./logs/$${date:yyyy-MM}/jpc_04_hibernate-%d{yyyy-MM-dd}-%i.log.gz">
+                     filePattern="${log_dir}/jpc/$${date:yyyy-MM}/jpc_04_hibernate-%d{yyyy-MM-dd}-%i.log.gz">
             <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy />

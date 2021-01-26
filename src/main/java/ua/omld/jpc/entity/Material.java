@@ -38,7 +38,6 @@ public class Material implements Identifiable<Long> {
 	@Column(name = "supplier")
 	private String supplier;
 
-	@Size(max = 50)
 	@Column(name = "measurement")
 	@Enumerated(EnumType.STRING)
 	private MaterialMeasurement measurement;

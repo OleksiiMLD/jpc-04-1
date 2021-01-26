@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -43,6 +44,7 @@ public class Report implements Identifiable<Long> {
 	@Column(name = "price")
 	private BigDecimal price;
 
+	@PastOrPresent
 	@Column(name = "order_date")
 	private LocalDate orderDate;
 

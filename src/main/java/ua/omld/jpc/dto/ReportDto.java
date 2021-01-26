@@ -2,6 +2,8 @@ package ua.omld.jpc.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -19,8 +21,10 @@ public class ReportDto {
 
 	private Long id;
 	private UserDto user;
+	@Size(max = 50)
 	private String name;
 	private BigDecimal price;
+	@PastOrPresent
 	private LocalDate orderDate;
 	private Set<BuildingDto> buildings;
 

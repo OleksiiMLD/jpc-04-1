@@ -2,6 +2,7 @@ package ua.omld.jpc.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.constraints.Size;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ public class BuildingDto {
 
 	private Long id;
 	private ReportDto report;
+	@Size(max = 50)
 	private String name;
 	private Boolean isActive;
 	private Set<ActivityDto> activities;
