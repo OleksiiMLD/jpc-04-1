@@ -1,7 +1,10 @@
 package ua.omld.jpc.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import ua.omld.jpc.entity.MaterialMeasurement;
+import ua.omld.jpc.validation.EnumConstraint;
 
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -18,7 +21,10 @@ public class MaterialDto {
 	private Long id;
 	private String name;
 	private BigDecimal price;
+	@Size(max = 50)
 	private String supplier;
+	@Size(max = 50)
+	@EnumConstraint(enumClass = MaterialMeasurement.class)
 	private String measurement;
 	private Double balance;
 

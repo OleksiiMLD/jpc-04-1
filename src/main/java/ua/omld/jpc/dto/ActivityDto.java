@@ -1,7 +1,10 @@
 package ua.omld.jpc.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import ua.omld.jpc.entity.ActivityMeasurement;
+import ua.omld.jpc.validation.EnumConstraint;
 
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -17,7 +20,11 @@ public class ActivityDto {
 
 	private Long id;
 	private BuildingDto building;
+
+	@Size(max = 100)
 	private String workName;
+	@Size(max = 20)
+	@EnumConstraint(enumClass = ActivityMeasurement.class)
 	private String measurement;
 	private BigDecimal price;
 	private Double amount;
